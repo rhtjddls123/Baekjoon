@@ -12,19 +12,19 @@ function solution(n, m, section) {
             return count;
     
         let start = section[0]
-        let end = section[section.length-1]
+        // let end = section[section.length-1]
 
         let len = start+m-1;
-        let len2 = end-m+1
+        // let len2 = end-m+1
 
         let s = section.filter((item)=>item>len)
-        let e = section.filter((item)=>item<len2)
-        if(s.length>e.length){
-            section=e
-        }
-        else{
-            section=s
-        }
+        // let e = section.filter((item)=>item<len2)
+        // if(s.length>e.length){
+        //     section=e
+        // }
+        // else{
+        section=s
+        // }
         count+=1
     }
     
