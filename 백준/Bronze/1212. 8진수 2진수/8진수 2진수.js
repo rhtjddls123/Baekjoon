@@ -26,9 +26,16 @@ function octaToBinary(num) {
   for (let i = 0; i < num.length; i += 1) {
     result += octaBinary[num[i]];
   }
-  result = result.replace(/^0+/, '');
-  if (result === "") {
-    return "0";
+
+  let point = 0;
+  for (let i = 0; i < result.length; i += 1) {
+    if (result[i] !== "0") {
+      point = i;
+      break;
+    }
   }
+
+  result = result.slice(point);
+  if (result === "000") result = "0";
   return result;
 }
