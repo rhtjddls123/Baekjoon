@@ -12,20 +12,7 @@ const keyboard = [
 ];
 
 const leftHand = [
-  "q",
-  "w",
-  "e",
-  "r",
-  "t",
-  "a",
-  "s",
-  "d",
-  "f",
-  "g",
-  "z",
-  "x",
-  "c",
-  "v",
+  "q", "w", "e", "r", "t", "a", "s", "d", "f", "g", "z", "x", "c", "v",
 ];
 
 rl.on("line", (x) => {
@@ -42,14 +29,14 @@ function solution(left, right, str) {
   let result = 0;
   for (let i = 0; i < str.length; i += 1) {
     if (leftHand.includes(str[i])) {
-      const { dis, cur } = distance(str[i], left);
+      const { dis, change } = distance(str[i], left);
       result += dis;
-      left = cur;
+      left = change;
     } else {
-      const { dis, cur } = distance(str[i], right);
+      const { dis, change } = distance(str[i], right);
       result += dis;
-      right = cur;
-    }
+      right = change;
+      }
   }
 
   console.log(result);
@@ -60,13 +47,13 @@ function distance(char, cur) {
   const dest = findIdx(keyboard, char); // 목적지의 위치
   if (dest[0] === cur[0] && dest[1] === cur[1]) {
     // 현재 위치가 목적지라면 1과 현재 위치 반환
-    return { dis: 1, cur: cur };
+    return { dis: 1, change: cur };
   }
 
   // 구한 거리에 누르는데 필요한 시간까지 +1하여 거리와 현재 위치 반환
   return {
     dis: Math.abs(cur[0] - dest[0]) + Math.abs(cur[1] - dest[1]) + 1,
-    cur: dest,
+    change: dest,
   };
 }
 
