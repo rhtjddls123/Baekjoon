@@ -1,30 +1,41 @@
+// Run by Node.js
 const readline = require('readline');
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+	input: process.stdin,
+	output: process.stdout
 });
 
 const input = [];
 
-rl.on('line', (line) => {
-    input.push(line.trim());
-}).on('close', () => {
-    const N = parseInt(input[0], 10);
-    const stocks = [];
-
-    for (let i = 1; i <= N; i++) {
-        const [vi, wi] = input[i].split(' ').map(Number);
-        const evalValue = Math.trunc(vi * wi * 10) / 10; // 소수점 아래 2째 자리에서 절삭
-        stocks.push({ index: i, evalValue });
-    }
-
-    stocks.sort((a, b) => {
-        if (b.evalValue === a.evalValue) {
-            return a.index - b.index; // 평가 금액이 같은 경우, 회사 번호가 작은 순서로
-        }
-        return b.evalValue - a.evalValue; // 평가 금액이 큰 순서로
-    });
-
-    const result = stocks.map(stock => stock.index);
-    console.log(result.join(' '));
+rl.on('line',(x)=>{
+	input.push(x);
+}).on('close',()=>{
+	const N = +input[0];
+	const stock = [];
+	for(let i=1; i<N+1; i+=1){
+		stock.push(input[i].split(' ').map(v=>+v));
+	}
+	solution(N, stock);
 });
+
+function solution(N, stock){
+	const price = [];
+	for(let i=0; i<stock.length; i+=1){
+		const p = float(stock[i][0]*stock[i][1]);
+		price.push({price:p,index:i+1})
+	}
+	
+	const sortedPrice = [...price].sort((a,b)=>{
+		if(b['price']===a['price']) return a['index']-b['index'];
+		else return b['price']-a['price'];
+	});
+	let result = ''
+	for(let i=0; i<N; i+=1){
+		result += sortedPrice[i]['index']+' '
+	}
+	console.log(result)
+}
+
+function float(n){
+	return Math.floor(n * 10) / 10;
+}
