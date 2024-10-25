@@ -17,7 +17,7 @@ for test_case in range(1, 11):
             a = int(o[i+1])
             b = int(o[i+2])
             for j in range(b):
-                arr.pop(a)
+                arr.pop(a+1)
 
         if(o[i]=='A'):
             a = int(o[i+1])
